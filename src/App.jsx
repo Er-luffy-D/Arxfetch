@@ -51,13 +51,18 @@ function App() {
           entry.getElementsByTagName("title")[0]?.textContent || "No title";
         const summary =
           entry.getElementsByTagName("summary")[0]?.textContent || "No summary";
-        const published =
-          entry.getElementsByTagName("published")[0]?.textContent || "No date";
+        let publishedRaw =
+          entry.getElementsByTagName("published")[0]?.textContent.split('T')[0] || "No date";
+        if (publishedRaw !== "No date") {
+          const publishedDate = new Date(publishedRaw);
+          const options = { year: 'numeric', month: 'long', day: 'numeric' }; // Format: Month Day, Year
+          publishedRaw = publishedDate.toLocaleDateString('en-US', options);
+        } 
         const link= 
           entry.getElementsByTagName("id")[0]?.textContent||"No link";
         return {
           title: title ? title.trim() : "No title available",
-          date: published ? published : "Dates Not found",
+          date: publishedRaw ? publishedRaw : "Dates Not found",
           abstract: summary ? summary.trim() : "No abstract available",
           id: link,
         };
