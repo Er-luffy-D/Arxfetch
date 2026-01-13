@@ -20,11 +20,12 @@ function App() {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `https://export.arxiv.org/api/query?search_query=${
+        `http://export.arxiv.org/api/query?search_query=all:${
           encodeURIComponent(searchQuery) || "hardware+architecture"
         }&start=0&max_results=50&sortBy=submittedDate&sortOrder=descending`,
         {
           method: "GET",
+          
         }
       );
 
